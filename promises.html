@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises</title>
+</head>
+
+<body>
+    <button id="fetchDataBtn">Fetch Data</button>
+    <div id="dataDisplay">Click the button to load data.</div>
+
+    <script>
+        document.getElementById('fetchDataBtn').addEventListener('click', fetchData);
+
+        function fetchData() {
+            const dataDisplay = document.getElementById('dataDisplay');
+            dataDisplay.textContent = 'Loading...';
+
+            // Create a new Promise that will resolve or reject based on the fetch request and timeout
+            const fetchPromise = fetch('https://dummyjson.com/posts')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                });
+
+            // Create a timeout promise
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject('Operation timed out');
+                }, 5000); // 5 seconds timeout
+            });
+
+            // Use Promise.race to handle whichever promise settles first (either fetch or timeout)
+            Promise.race([fetchPromise, timeoutPromise])
+                .then(data => {
+                    dataDisplay.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    dataDisplay.textContent = `Error: ${error}`;
+                });
+        }
+
+    </script>
+</body>
+
+</html>
