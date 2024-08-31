@@ -5,10 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promises</title>
+    <style>
+        body {
+            background-color: greenyellow;
+        }
+
+        #btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fetchDataBtn {
+            background-color: rgb(59, 130, 246);
+            border-radius: 0.375rem;
+            font-weight: 700;
+            margin: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        #fetchDataBtn:hover {
+            background-color: rgb(147, 197, 253);
+        }
+
+        #dataDisplay {
+            height: 50vh;
+            overflow: scroll;
+            overflow: auto;
+            background-color: lightpink;
+        }
+    </style>
 </head>
 
 <body>
-    <button id="fetchDataBtn">Fetch Data</button>
+    <div id="btn"><button id="fetchDataBtn">Fetch Data</button></div>
     <div id="dataDisplay">Click the button to load data.</div>
 
     <script>
